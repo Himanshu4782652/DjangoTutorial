@@ -45,3 +45,10 @@ def UpdateData(request,pk):
  udata.save()
  #render to showpage
  return redirect('showpage')
+
+#delete data view
+def DeleteData(request,pk):
+ ddata=Student.objects.get(id=pk)
+ #query for delete
+ ddata.delete()
+ return redirect('showpage')

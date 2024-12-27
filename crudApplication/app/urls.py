@@ -6,4 +6,5 @@ urlpatterns = [
  path("showpage/",views.ShowPage, name="showpage"),
  path("editpage/<int:pk>",views.EditPage,name="editpage"),
  path("update/<int:pk>",views.UpdateData,name="update"),
+ path("delete/<int:pk>",views.DeleteData,name="delete"),
 ]

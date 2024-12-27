@@ -1,7 +1,9 @@
 from django.urls import path, include
 from .import views
 urlpatterns = [
- path("",views.InsertPageView,name="insertPage"),
+ path("",views.InsertPageView,name="insertpage"),
  path("insert/",views.InsertData,name="insert"),
- path("showPage/",views.ShowPage, name="showPage")
+ path("showpage/",views.ShowPage, name="showpage"),
+ path("editpage/<int:pk>",views.EditPage,name="editpage"),
+ path("update/<int:pk>",views.UpdateData,name="update"),
 ]

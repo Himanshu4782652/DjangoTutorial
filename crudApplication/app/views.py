@@ -19,7 +19,7 @@ def InsertData(request):
  #after insert render on show.html
  # return render(request,"app/show.html")
  #after insert redirect on showPage view
- return redirect('showPage')
+ return redirect('showpage')
 
 #show page view
 def ShowPage(request):
@@ -27,3 +27,21 @@ def ShowPage(request):
  #for fetching all the data of the table
  all_data=Student.objects.all()
  return render(request,"app/show.html",{'key1':all_data})
+
+#edit page view
+def EditPage(request,pk):
+ #fetching the data of particular id
+ get_data=Student.objects.get(id=pk)
+ return render(request,"app/edit.html",{'key2':get_data})
+
+#update data view
+def UpdateData(request,pk):
+ udata=Student.objects.get(id=pk)
+ udata.Firstname=request.POST['fname']
+ udata.Lastname=request.POST['lname']
+ udata.Email=request.POST['email']
+ udata.Contact=request.POST['contact']
+ #query for update
+ udata.save()
+ #render to showpage
+ return redirect('showpage')

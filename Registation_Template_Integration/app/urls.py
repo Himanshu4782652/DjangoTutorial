@@ -3,4 +3,5 @@ from . import views
 
 urlpatterns = [
  path("",views.RegisterPage,name="registerpage"),
+ path("register/",views.UserRegister,name="register"),
 ]

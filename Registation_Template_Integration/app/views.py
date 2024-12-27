@@ -30,3 +30,28 @@ def UserRegister(request):
    else:
     message="Password and ConformPassword does not match"
     return render(request,"app/register.html",{'msg':message})
+   
+#login view   
+def LoginPage(request):
+ return render(request,"app/login.html")
+
+#login user
+def LoginUser(request):
+ if request.method=="POST":
+  email=request.POST['email']
+  password=request.POST['password']
+  #checking the email id with database
+  user=User.objects.get(Email=email)
+  if user:
+   if user.Password==password:
+    #we are getting user data in session
+    request.session['Firstname']=user.Firstname
+    request.session['Lastname']=user.Lastname
+    request.session['Email']=user.Email
+    return render(request,"app/home.html")
+   else:
+    message="Password does not match"
+    return render(request,"app/login.html",{'msg':message})
+  else:
+   message="User does not exist"
+   return render(request,"app/register.html",{'msg':message})

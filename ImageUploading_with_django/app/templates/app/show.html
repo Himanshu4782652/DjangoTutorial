@@ -1,1 +1,8 @@
 <h1>show page<h1>
+ {% if key1 %}
+  {% for i in key1 %}
+  ImageName: {{i.Imagename}}
+  <br>
+  <img src="{{MEDIA_URL}}{{i.Image.url}}" alt="" srcset="">
+  {% endfor %} 
+ {% endif %}

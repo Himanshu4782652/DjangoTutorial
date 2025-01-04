@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .models import *
 from random import randint
 
@@ -63,7 +63,7 @@ def RegisterCompany(request):
                return render(request, "app/otpverify.html",{'email':email})
             else:
                print("Candidate registration")
-         
+
 def OTPPage(request):
    return render(request,"app/otpverify.html")
 
@@ -81,3 +81,42 @@ def Otpverify(request):
          return render(request,"app/otpverify.html",{'msg':message})
    else:
       return render(request,"app/signup.html")
+
+def Loginpage(request):
+    return render(request,"app/login.html")
+
+
+def LoginUser(request):
+    if request.method == "POST":
+        # Validate 'role' key existence and non-empty value
+        role = request.POST.get("role", None)
+        if not role:
+            message = "Please select a role."
+            return render(request, "app/login.html", {"msg": message})
+
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+
+        try:
+            # Match the user from the database
+            user = UserMaster.objects.get(email=email)
+            if user and user.password == password and user.role == role:
+                if role == "Candidate":
+                    can = Candidate.objects.get(user_id=user)
+                    # Create sessions
+                    request.session["id"] = user.id
+                    request.session["role"] = user.role
+                    request.session["firstname"] = can.firstname
+                    request.session["lastname"] = can.lastname
+                    request.session["email"] = user.email
+                    return redirect("index")
+                else:
+                    message = "Invalid role for login."
+            else:
+                message = "Invalid email or password."
+        except UserMaster.DoesNotExist:
+            message = "User does not exist."
+
+        return render(request, "app/login.html", {"msg": message})
+    else:
+        return render(request, "app/login.html")

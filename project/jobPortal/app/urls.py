@@ -8,4 +8,6 @@ urlpatterns = [
   path("registercompany/",views.RegisterCompany,name="registercompany"),
   path("otppage/",views.OTPPage,name="otppage"),
   path("otp/",views.Otpverify,name="otp"),
+  path("loginpage/",views.Loginpage,name="loginpage"),
+  path("loginuser/",views.LoginUser,name="login"),
 ]

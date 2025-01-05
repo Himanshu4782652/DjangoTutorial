@@ -5,9 +5,10 @@ urlpatterns = [
   path("",views.IndexPage,name="index"), 
   path("signup/",views.SignupPage,name="signup"),
   path("register/",views.RegisterUser,name="register"),
-  path("registercompany/",views.RegisterCompany,name="registercompany"),
+  # path("registercompany/",views.RegisterCompany,name="registercompany"),
   path("otppage/",views.OTPPage,name="otppage"),
   path("otp/",views.Otpverify,name="otp"),
   path("loginpage/",views.Loginpage,name="loginpage"),
   path("loginuser/",views.LoginUser,name="login"),
+  path("profile/",views.ProfilePage,name="profile"),
 ]

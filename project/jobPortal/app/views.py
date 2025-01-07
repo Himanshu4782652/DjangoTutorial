@@ -104,7 +104,15 @@ def LoginUser(request):
                request.session["email"] = user.email
                return redirect("index")
             else:
-               message = "Invalid role for login."
+               if role == "Company":
+                  com=Company.objects.get(user_id=user)
+                  # Create sessions
+                  request.session["id"] = user.id
+                  request.session["role"] = user.role
+                  request.session["firstname"] = com.firstname
+                  request.session["lastname"] = com.lastname
+                  request.session["email"] = user.email
+                  return redirect("index")
          else:
             message = "Invalid email or password."
       except UserMaster.DoesNotExist:

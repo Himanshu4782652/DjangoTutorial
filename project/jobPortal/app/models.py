@@ -25,6 +25,7 @@ class Candidate(models.Model):
  profile_pic=models.ImageField(upload_to="app/img/candidate")
  
 class Company(models.Model):
+ user_id = models.ForeignKey(UserMaster, on_delete=models.CASCADE)
  firstname=models.CharField(max_length=50)
  lastname=models.CharField(max_length=50)
  company_name=models.CharField(max_length=150)

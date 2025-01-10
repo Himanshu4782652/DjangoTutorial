@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 
-<!-- Start home -->
+<!-- Start Home Section -->
 <section class="bg-half page-next-level">
   <div class="bg-overlay"></div>
   <div class="container">
@@ -12,14 +12,10 @@
           <h4 class="text-uppercase title mb-4">Profile</h4>
           <ul class="page-next d-inline-block mb-0">
             <li>
-              <a href="index.html" class="text-uppercase font-weight-bold"
-                >Home</a
-              >
+              <a href="index.html" class="text-uppercase font-weight-bold">Home</a>
             </li>
             <li>
-              <span class="text-uppercase text-white font-weight-bold"
-                >Profile</span
-              >
+              <span class="text-uppercase text-white font-weight-bold">Profile</span>
             </li>
           </ul>
         </div>
@@ -27,9 +23,9 @@
     </div>
   </div>
 </section>
-<!-- end home -->
+<!-- End Home Section -->
 
-<!-- POST A JOB START -->
+<!-- Profile Update Section -->
 <section class="section">
   <div class="container">
     <div class="row justify-content-center">
@@ -37,29 +33,21 @@
         <div class="rounded shadow bg-white p-4">
           <div class="custom-form">
             <div id="message3"></div>
-            <form
-              method="post"
-              action="https://themesdesign.in/jobya/php/contact.php"
-              name="contact-form"
-              id="contact-form3"
-            >
+            <form method="post" action="{% url 'updateprofile' pk=request.session.id %}" name="contact-form" id="contact-form3" enctype="multipart/form-data">
+              {% csrf_token %}
               <h4 class="text-dark mb-3">Update your profile</h4>
-
+              <!-- Name Fields -->
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group app-label mt-2">
                     <label class="text-muted">Firstname</label>
-                    <div class="form-button">
-                      <input type="text" name="firstname" id="" class="form-control resume">
-                    </div>
+                    <input type="text" name="firstname" class="form-control resume" value="{{ can.firstname }}">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group app-label mt-2">
                     <label class="text-muted">Lastname</label>
-                    <div class="form-button">
-                      <input type="text" name="lastname" id="" class="form-control resume">
-                    </div>
+                    <input type="text" name="lastname" class="form-control resume" value="{{ can.lastname }}">
                   </div>
                 </div>
               </div>
@@ -67,123 +55,28 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group app-label mt-2">
-                    <label class="text-muted">City</label>
-                    <input
-                      id="city"
-                      type="text"
-                      class="form-control resume"
-                      placeholder=""
-                    />
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group app-label mt-2">
-                    <label class="text-muted">Country</label>
+                    <label class="text-muted">Job Type</label>
                     <div class="form-button">
-                      <select class="nice-select rounded">
-                        <option data-display="Country">Country</option>
-                        <option value="1">Afghanistan</option>
-                        <option value="2">Bangladesh</option>
-                        <option value="3">Canada</option>
-                        <option value="4">Dominica</option>
+                      <select class="form-control resume" name="jobtype" value="{{ can.jobtype }}">
+                        <option data-display="Job Type">Job Type</option>
+                        <option value="1">Full Time</option>
+                        <option value="2">Part Time</option>
                       </select>
                     </div>
                   </div>
                 </div>
-              </div>
-
-              <div class="row">
                 <div class="col-md-6">
                   <div class="form-group app-label mt-2">
-                    <label class="text-muted">Minimum Salary</label>
-                    <input
-                      id="minimum-salary"
-                      type="text"
-                      class="form-control resume"
-                      placeholder="$8000"
-                    />
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group app-label mt-2">
-                    <label class="text-muted">Maximum Salary</label>
-                    <input
-                      id="maximum-salary"
-                      type="text"
-                      class="form-control resume"
-                      placeholder="$20000"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group app-label mt-2">
-                    <label class="text-muted">Highest Education</label>
-                    <div class="form-button">
-                      <select class="nice-select rounded">
-                        <option data-display="Level">Level</option>
-                        <option value="1">Level-1</option>
-                        <option value="2">Level-2</option>
-                        <option value="3">Level-3</option>
-                        <option value="4">Level-4</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-md-6">
-                  <div class="form-group app-label mt-2">
-                    <label class="text-muted">Year of Experience</label>
-                    <div class="form-button">
-                      <select class="nice-select rounded">
-                        <option data-display="Experience">Experience</option>
-                        <option value="1">1 Year</option>
-                        <option value="2">2 Year</option>
-                        <option value="3">3 Year</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group app-label mt-2">
-                    <label class="text-muted">Website</label>
-                    <input
-                      id="url"
-                      type="url"
-                      class="form-control resume"
-                      placeholder=""
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group app-label mt-2">
-                    <label class="text-muted">Email Address</label>
-                    <input
-                      id="email-address"
-                      type="text"
-                      class="form-control resume"
-                      placeholder=""
-                    />
-                  </div>
-                </div>
-
-                <div class="col-md-6">
-                  <div class="form-group app-label mt-2">
-                    <label class="text-muted">Phone Number</label>
-                    <input
-                      id="number"
-                      type="text"
-                      class="form-control resume"
-                      placeholder=""
-                    />
+                      <label class="text-muted">Job Category</label>
+                      <div class="form-button">
+                        <select class="form-control resume" name="jobcategory" value="{{ can.jobcategory }}">
+                          <option data-display="Category">Category</option>
+                          <option value="1">Web Developer</option>
+                          <option value="2">PHP Developer</option>
+                          <option value="3">Web Designer</option>
+                          <option value="4">Graphic Designer</option>
+                        </select>
+                      </div>
                   </div>
                 </div>
               </div>
@@ -193,77 +86,156 @@
                   <div class="form-group app-label mt-2">
                     <label class="text-muted">Gender</label>
                     <div class="form-button">
-                      <select class="nice-select rounded">
-                        <option data-display="Gender">Gender</option>
+                      <select class="form-control resume" name="gender" value="{{ can.gender }}">
+                        <option data-display="Job Type">==Select Gender==</option>
                         <option value="1">Male</option>
                         <option value="2">Female</option>
+                        <option value="3">Other</option>
                       </select>
                     </div>
                   </div>
                 </div>
-
                 <div class="col-md-6">
                   <div class="form-group app-label mt-2">
                     <label class="text-muted">Shift</label>
                     <div class="form-button">
-                      <select class="nice-select rounded">
-                        <option data-display="Shift">Shift</option>
+                      <select class="form-control resume" name="shift" value="{{ can.shift }}">
+                        <option data-display="Job Type">==Select Shift==</option>
                         <option value="1">Morning</option>
-                        <option value="2">Evening</option>
+                        <option value="2">Afternoon</option>
+                        <option value="3">Evening</option>
+                        <option value="4">Night</option>
                       </select>
                     </div>
                   </div>
                 </div>
               </div>
-
+              <!-- Location Fields -->
               <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
                   <div class="form-group app-label mt-2">
-                    <label class="text-muted">Job Description</label>
-                    <textarea
-                      id="description"
-                      rows="6"
-                      class="form-control resume"
-                      placeholder=""
-                    ></textarea>
+                    <label class="text-muted">City</label>
+                    <input type="text" class="form-control resume" name="city" value="{{ can.city }}">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group app-label mt-2">
+                    <label class="text-muted">Country</label>
+                    <select class="form-control resume" name="country" value="{{ can.country }}">
+                      <option data-display="Country">==Select Country==</option>
+                      <option value="1">Afghanistan</option>
+                      <option value="2">Bangladesh</option>
+                      <option value="3">Canada</option>
+                      <option value="4">Dominica</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group app-label mt-2">
+                    <label class="text-muted">Portfolio Website</label>
+                    <input type="text" class="form-control resume" name="website" value="{{ can.website }}">
+                  </div>
+                </div>
+              </div
+              <!-- Salary Fields -->
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group app-label mt-2">
+                    <label class="text-muted">Minimum Salary</label>
+                    <input type="text" class="form-control resume" placeholder="$8000" name="min_salary" value="{{ can.min_salary }}">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group app-label mt-2">
+                    <label class="text-muted">Maximum Salary</label>
+                    <input type="text" class="form-control resume" placeholder="$20000" name="max_salary" value="{{ can.max_salary }}">
                   </div>
                 </div>
               </div>
 
+              <!-- Education and Experience -->
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group app-label mt-2">
+                    <label class="text-muted">Highest Education</label>
+                    <select class="form-control resume" name="highestedu" value="{{ can.highestedu }}">
+                      <option data-display="Level">==Select Level==</option>
+                      <option value="1">Level-1</option>
+                      <option value="2">Level-2</option>
+                      <option value="3">Level-3</option>
+                      <option value="4">Level-4</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group app-label mt-2">
+                    <label class="text-muted">Year of Experience</label>
+                    <select class="form-control resume" name="experience" value="{{ can.experience }}">
+                      <option data-display="Experience">==Select Experience==</option>
+                      <option value="1">1 Year</option>
+                      <option value="2">2 Year</option>
+                      <option value="3">3 Year</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Contact Information -->
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group app-label mt-2">
+                    <label class="text-muted">Email Address</label>
+                    <input type="text" class="form-control resume" value="{{ user.email }}">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group app-label mt-2">
+                    <label class="text-muted">Phone Number</label>
+                    <input type="text" class="form-control resume" name="contact" value="{{ can.contact }}">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Job Description -->
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group app-label mt-2">
+                    <label class="text-muted">Job Description</label>
+                    <textarea rows="6" class="form-control resume" name="jobdescription" value="{{ can.jobdescription }}"></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <!-- File Upload -->
               <div class="row">
                 <div class="col-md-12">
                   <ul class="list-inline mb-0">
                     <li class="list-inline-item">
                       <div class="input-group mt-2 mb-2">
                         <div class="custom-file">
-                          <input
-                            type="file"
-                            class="custom-file-input"
-                            id="inputGroupFile01"
-                            aria-describedby="inputGroupFileAddon01"
-                          />
-                          <label class="custom-file-label rounded"
-                            ><i class="mdi mdi-cloud-upload me-1"></i> Upload
-                            Files</label
-                          >
+                          <input type="file" class="custom-file-input" name="image" value="{{ can.image }}">
+                          <label class="custom-file-label rounded">
+                            <i class="mdi mdi-cloud-upload me-1"></i> Upload Files
+                          </label>
                         </div>
                       </div>
                     </li>
-
                     <li class="list-inline-item">
-                      <h6 class="text-muted mb-0">
-                        Upload Images Or Documents.
-                      </h6>
+                      <h6 class="text-muted mb-0">Upload Images Or Documents.</h6>
                     </li>
                   </ul>
                 </div>
               </div>
 
+              <!-- Submit Button -->
               <div class="row">
                 <div class="col-lg-12 mt-2">
-                  <a href="#" class="btn btn-primary">Post a Job</a>
+                  <a type="submit" class="btn btn-primary">Update Profile</a>
                 </div>
               </div>
+
             </form>
           </div>
         </div>
@@ -271,9 +243,9 @@
     </div>
   </div>
 </section>
-<!-- POST A JOB END -->
+<!-- End Profile Update Section -->
 
-<!-- subscribe start -->
+<!-- Subscribe Section -->
 <section class="section bg-light">
   <div class="container">
     <div class="row">
@@ -288,23 +260,9 @@
         <form>
           <div class="form-group mb-0">
             <div class="input-group mb-0">
-              <input
-                name="email"
-                id="email"
-                type="email"
-                class="form-control"
-                placeholder="Your email :"
-                required=""
-                aria-describedby="newssubscribebtn"
-              />
+              <input name="email" id="email" type="email" class="form-control" placeholder="Your email :" required>
               <div class="input-group-append">
-                <button
-                  class="btn btn-primary submitBnt"
-                  type="submit"
-                  id="newssubscribebtn"
-                >
-                  Subscribe
-                </button>
+                <button class="btn btn-primary submitBnt" type="submit" id="newssubscribebtn">Subscribe</button>
               </div>
             </div>
           </div>
@@ -313,21 +271,25 @@
     </div>
   </div>
 </section>
-<!-- subscribe end -->
-<!-- Back to top -->
+<!-- End Subscribe Section -->
+
+<!-- Back to Top -->
 <a href="#" class="back-to-top rounded text-center" id="back-to-top">
-  <i class="mdi mdi-chevron-up d-block"> </i>
+  <i class="mdi mdi-chevron-up d-block"></i>
 </a>
-<!-- javascript -->
+
+<!-- JavaScript -->
 <script src="{% static 'js/jquery.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'js/jquery.easing.min.js' %}"></script>
 <script src="{% static 'js/plugins.js' %}"></script>
-
-<!-- selectize js -->
+<script>
+  $(document).ready(function () {
+    $('select.nice-select').niceSelect();
+  });
+</script>
 <script src="{% static 'js/selectize.min.js' %}"></script>
-
 <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
-
 <script src="{% static 'js/app.js' %}"></script>
+
 {% endblock %}

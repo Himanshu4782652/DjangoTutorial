@@ -10,5 +10,6 @@ urlpatterns = [
   path("otp/",views.Otpverify,name="otp"),
   path("loginpage/",views.Loginpage,name="loginpage"),
   path("loginuser/",views.LoginUser,name="login"),
-  path("profile/",views.ProfilePage,name="profile"),
+  path("profile/<int:pk>",views.ProfilePage,name="profile"),
+  path("updateprofile/<int:pk>",views.UpdateProfile,name="updateprofile"),
 ]

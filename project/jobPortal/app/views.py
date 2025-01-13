@@ -112,7 +112,7 @@ def LoginUser(request):
                   request.session["firstname"] = com.firstname
                   request.session["lastname"] = com.lastname
                   request.session["email"] = user.email
-                  return redirect("index")
+                  return redirect("companyindex")
          else:
             message = "Invalid email or password."
       except UserMaster.DoesNotExist:
@@ -131,10 +131,11 @@ def UpdateProfile(request,pk):
    user=UserMaster.objects.get(pk=pk)
    if user.role=="Candidate":
       can=Candidate.objects.get(user_id=user)
-      # can.country=request.POST['country'] #first country belongs to database field and second field is belongs to html input name
+      # breakpoint()
+      can.country=request.POST['country'] #first country belongs to database field and second field is belongs to html input name
       can.state=request.POST['state']
       can.city=request.POST['city']
-      can.jobtype=request.POST['jobtype']
+      can.job_type=request.POST['job_type']
       can.jobcategory=request.POST['jobcategory']
       can.highestedu=request.POST['highestedu']
       can.experience=request.POST['experience']
@@ -145,7 +146,16 @@ def UpdateProfile(request,pk):
       can.max_salary=request.POST['max_salary']
       can.contact=request.POST['contact']
       can.gender=request.POST['gender']
-      can.profile_pic=request.FILES['image']
+      can.profile_pic=request.FILES['profile_pic']
       can.save()
       url=f'/profile/{pk}' #formatting url
       return redirect(url)
+   
+   
+########## Company Side ###########
+
+def CompanyIndexPage(request):
+   return render(request,"app/company/index.html")
+
+def CompanyProfile(request):
+   return render(request,"app/company/profile.html")

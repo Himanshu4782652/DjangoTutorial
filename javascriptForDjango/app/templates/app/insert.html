@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      // Validate First Name
+      function check_fname() {
+        var f = document.frm.fname.value;
+        var reg = /^[A-Za-z]+$/; // Allow only alphabets
+        //note that trim function is used to remove space
+        if (f.trim() == "") {
+          document.getElementById("error_fname").innerHTML =
+            "Please enter your first name";
+        } else if (!reg.test(f)) {
+          document.getElementById("error_fname").innerHTML =
+            "Please enter only alphabets";
+        } else {
+          document.getElementById("error_fname").innerHTML = "";
+        }
+      }
+
+      // Validate Last Name
+      function check_lname() {
+        var l = document.frm.lname.value;
+        var reg = /^[A-Za-z]+$/; // Allow only alphabets
+        if (l.trim() == "") {
+          document.getElementById("error_lname").innerHTML =
+            "Please enter your last name";
+        } else if (!reg.test(l)) {
+          document.getElementById("error_lname").innerHTML =
+            "Please enter only alphabets";
+        } else {
+          document.getElementById("error_lname").innerHTML = "";
+        }
+      }
+
+      // Validate Email
+      function check_email() {
+        var e = document.frm.email.value;
+        var reg = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/; // Email pattern
+        if (e.trim() == "") {
+          document.getElementById("error_email").innerHTML =
+            "Please enter your email";
+        } else if (!reg.test(e)) {
+          document.getElementById("error_email").innerHTML =
+            "Please enter a valid email";
+        } else {
+          document.getElementById("error_email").innerHTML = "";
+        }
+      }
+
+      // Validate Contact
+      function check_contact() {
+        var c = document.frm.contact.value;
+        var reg = /^[0-9]{10}$/; // Exactly 10 digits
+        if (c.trim() == "") {
+          document.getElementById("error_contact").innerHTML =
+            "Please enter your contact number";
+        } else if (!reg.test(c)) {
+          document.getElementById("error_contact").innerHTML =
+            "Please enter a valid 10-digit number";
+        } else {
+          document.getElementById("error_contact").innerHTML = "";
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <center>
+      <h1>Insert Form</h1>
+      <form action="{% url 'insert' %}" name="frm" method="post">
+        {% csrf_token %}
+        <table>
+          <!-- Firstname -->
+          <tr>
+            <td>Firstname</td>
+            <td>
+              <input type="text" name="fname" onblur="check_fname();" />
+            </td>
+            <td><span id="error_fname" style="color: red"></span></td>
+          </tr>
+
+          <!-- Lastname -->
+          <tr>
+            <td>Lastname</td>
+            <td>
+              <input type="text" name="lname" onblur="check_lname();" />
+            </td>
+            <td><span id="error_lname" style="color: red"></span></td>
+          </tr>
+
+          <!-- Email -->
+          <tr>
+            <td>Email</td>
+            <td>
+              <input type="email" name="email" onblur="check_email();" />
+            </td>
+            <td><span id="error_email" style="color: red"></span></td>
+          </tr>
+
+          <!-- Contact -->
+          <tr>
+            <td>Contact</td>
+            <td>
+              <input type="tel" name="contact" onblur="check_contact();" />
+            </td>
+            <td><span id="error_contact" style="color: red"></span></td>
+          </tr>
+
+          <!-- Submit -->
+          <tr>
+            <td>
+              <input type="submit" value="Insert" />
+            </td>
+          </tr>
+        </table>
+      </form>
+    </center>
+  </body>
+</html>

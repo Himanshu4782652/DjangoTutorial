@@ -1,0 +1,19 @@
+{
+ // Use IntelliSense to learn about possible attributes.
+ // Hover to view descriptions of existing attributes.
+ // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+ "version": "0.2.0",
+ "configurations": [
+
+  {
+   "name": "jobPortal",
+   "python": "/home/aman/Desktop/Himanshu/DjangoTutorial/project/jobPortal/env/bin/python3",
+   "type": "python",
+   "request": "launch",
+   "program": "/home/aman/Desktop/Himanshu/DjangoTutorial/project/jobPortal/manage.py",
+   "name": "Creation of new remote launch configurations is not supported",
+   "console": "internalConsole",
+   "args": ["runserver"]
+  }
+ ]
+}

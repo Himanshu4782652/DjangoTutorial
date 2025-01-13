@@ -12,4 +12,8 @@ urlpatterns = [
   path("loginuser/",views.LoginUser,name="login"),
   path("profile/<int:pk>",views.ProfilePage,name="profile"),
   path("updateprofile/<int:pk>",views.UpdateProfile,name="updateprofile"),
+  
+  ############# Company Side ###############
+  path("companyindex/",views.CompanyIndexPage,name="companyindex"),
+  path("companyProfile/",views.CompanyProfile,name="companyProfile"),
 ]

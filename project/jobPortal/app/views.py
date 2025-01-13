@@ -146,7 +146,8 @@ def UpdateProfile(request,pk):
       can.max_salary=request.POST['max_salary']
       can.contact=request.POST['contact']
       can.gender=request.POST['gender']
-      can.profile_pic=request.FILES['profile_pic']
+      if 'image' in request.FILES:
+         can.profile_pic=request.FILES['image']
       can.save()
       url=f'/profile/{pk}' #formatting url
       return redirect(url)
@@ -157,5 +158,28 @@ def UpdateProfile(request,pk):
 def CompanyIndexPage(request):
    return render(request,"app/company/index.html")
 
-def CompanyProfile(request):
-   return render(request,"app/company/profile.html")
+def CompanyProfile(request,pk):
+   user=UserMaster.objects.get(pk=pk)
+   comp=Company.objects.get(user_id=user)
+   return render(request,"app/company/profile.html",{'user':user,'comp':comp})
+
+def CompanyProfileUpdate(request, pk):
+   user = UserMaster.objects.get(pk=pk)
+   if user.role == "Company":
+      comp = Company.objects.get(user_id=user)
+      comp.firstname = request.POST['firstname']
+      comp.lastname = request.POST['lastname']
+      comp.company_name = request.POST['company_name']
+      comp.state = request.POST['state']
+      comp.city = request.POST['city']
+      comp.contact = request.POST['contact']
+      comp.address = request.POST['address']
+      comp.website = request.POST['website']
+      comp.description = request.POST['description']
+
+      # Handling file upload (image)
+      if 'image' in request.FILES:
+         comp.logo_pic = request.FILES['image']
+      comp.save()
+      url = f"/companyProfile/{pk}"
+      return redirect(url)

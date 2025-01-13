@@ -31,7 +31,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i>{{request.session.firstname}} {{request.session.lastname}}</a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">Profile</a></li>
+                        <li><a class="dropdown-item" href="{% url 'companyProfile' pk=request.session.id %}">Profile</a></li>
                         <li><hr class="dropdown-divider" /></li>
                         <li><a class="dropdown-item" href="#!">Logout</a></li>
                     </ul>
@@ -108,10 +108,13 @@
                     </div>
                 </nav>
             </div>
-        </div>
-{% block content %}
+						<div id="layoutSidenav_content">
+						{% block content %}
 
-{% endblock %}
+						{% endblock %}
+						</div>
+        </div>
+
 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">

@@ -121,7 +121,7 @@ def LoginUser(request):
       return render(request, "app/login.html", {"msg": message})
    else:
       return render(request, "app/login.html")
-   
+
 def ProfilePage(request,pk):
    user=UserMaster.objects.get(pk=pk) 
    can=Candidate.objects.get(user_id=user)
@@ -151,8 +151,8 @@ def UpdateProfile(request,pk):
       can.save()
       url=f'/profile/{pk}' #formatting url
       return redirect(url)
-   
-   
+
+
 ########## Company Side ###########
 
 def CompanyIndexPage(request):
@@ -183,3 +183,49 @@ def CompanyProfileUpdate(request, pk):
       comp.save()
       url = f"/companyProfile/{pk}"
       return redirect(url)
+
+def JobPostPage(request):
+   return render(request,"app/company/jobpost.html")
+
+def JobDetailSubmit(request):
+   user_id=request.session.get('id')
+   user = UserMaster.objects.get(id=user_id)
+   if user.role == "Company":
+      comp = Company.objects.get(user_id=user)
+      jobname = request.POST["jobname"]
+      companyname = request.POST["companyname"]
+      companyaddress = request.POST["companyaddress"]
+      companyemail = request.POST["companyemail"]
+      jobdescription = request.POST["jobdescription"]
+      qualification = request.POST["qualification"]
+      companycontact = request.POST["companycontact"]
+      responsibities = request.POST["responsibities"]
+      location = request.POST["location"]
+      companywebsite = request.POST["companywebsite"]
+      salarypackage = request.POST["salarypackage"]
+      experience = request.POST["experience"]
+      logo = request.FILES.get("image")
+
+
+      newjob = JobDetails.objects.create(
+            company_id=comp,
+            jobname=jobname,
+            companyname=companyname,
+            companyaddress=companyaddress,
+            jobdescription=jobdescription,
+            qualification=qualification,
+            responsibities=responsibities,
+            companywebsite=companywebsite,
+            location=location,
+            companyemail=companyemail,
+            companycontact=companycontact,
+            salarypackage=salarypackage,
+            experience=experience,
+            logo=logo
+         )
+      
+      message="Job Posted Successfully"
+      return render(request,"app/company/jobpost.html",{'msg':message})
+   
+def JobListPage(request):
+   return render(request,"app/company/jobpostlist.html")

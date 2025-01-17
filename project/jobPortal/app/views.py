@@ -112,6 +112,7 @@ def LoginUser(request):
                   request.session["firstname"] = com.firstname
                   request.session["lastname"] = com.lastname
                   request.session["email"] = user.email
+                  request.session['password'] = user.password
                   return redirect("companyindex")
          else:
             message = "Invalid email or password."
@@ -228,4 +229,14 @@ def JobDetailSubmit(request):
       return render(request,"app/company/jobpost.html",{'msg':message})
    
 def JobListPage(request):
-   return render(request,"app/company/jobpostlist.html")
+   all_job=JobDetails.objects.all() 
+   return render(request,"app/company/jobpostlist.html",{'all_job':all_job})
+
+def CandidateJobListPage(request):
+   all_job=JobDetails.objects.all() 
+   return render(request,"app/job-list.html",{'all_job':all_job})
+
+def CompanyLogout(request):
+   del request.session['email']
+   del request.session['password']
+   return redirect('index')

@@ -153,6 +153,20 @@ def UpdateProfile(request,pk):
       url=f'/profile/{pk}' #formatting url
       return redirect(url)
 
+def JobListPage(request):
+   all_job=JobDetails.objects.all() 
+   return render(request,"app/company/jobpostlist.html",{'all_job':all_job})
+
+def CandidateJobListPage(request):
+   all_job=JobDetails.objects.all() 
+   return render(request,"app/job-list.html",{'all_job':all_job})
+
+def ApplyPage(request,pk):
+   user=request.session['id']
+   if user:
+      cand=Candidate.objects.get(user_id=user)
+      job=JobDetails.objects.get(id=pk)
+   return render(request,"app/apply.html",{'user':user,'cand':cand,'job':job})
 
 ########## Company Side ###########
 
@@ -227,14 +241,6 @@ def JobDetailSubmit(request):
       
       message="Job Posted Successfully"
       return render(request,"app/company/jobpost.html",{'msg':message})
-   
-def JobListPage(request):
-   all_job=JobDetails.objects.all() 
-   return render(request,"app/company/jobpostlist.html",{'all_job':all_job})
-
-def CandidateJobListPage(request):
-   all_job=JobDetails.objects.all() 
-   return render(request,"app/job-list.html",{'all_job':all_job})
 
 def CompanyLogout(request):
    del request.session['email']

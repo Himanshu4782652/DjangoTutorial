@@ -7,7 +7,7 @@
     <div class="row justify-content-center">
       <div class="col-md-6">
         <div class="text-center text-white">
-          <h4 class="text-uppercase title mb-4">Profile</h4>
+          <h4 class="text-uppercase title mb-4">Candidate Apply Form</h4>
           <ul class="page-next d-inline-block mb-0">
             <li>
               <a href="index.html" class="text-uppercase font-weight-bold"
@@ -16,7 +16,7 @@
             </li>
             <li>
               <span class="text-uppercase text-white font-weight-bold"
-                >Profile</span
+                >Candidate Apply Form</span
               >
             </li>
           </ul>
@@ -35,15 +35,12 @@
         <div class="rounded shadow bg-white p-4">
           <div class="custom-form">
             <div id="message3"></div>
-            <form
-              method="post"
-              action="{% url 'updateprofile' pk=request.session.id %}"
-              name="contact-form"
-              id="contact-form3"
-              enctype="multipart/form-data"
-            >
+            {% if user %}
+            {% if cand %}
+            {% if job %}
+            <form method="post" action="{% url 'updateprofile' pk=request.session.id %}" name="contact-form" id="contact-form3" enctype="multipart/form-data">
               {% csrf_token %}
-              <h4 class="text-dark mb-3">Update your profile</h4>
+              <h4 class="text-dark mb-3">Please Enter your details</h4>
               <!-- Name Fields -->
               <div class="row">
                 <div class="col-md-6">
@@ -53,7 +50,7 @@
                       type="text"
                       name="firstname"
                       class="form-control resume"
-                      value="{{ can.firstname }}"
+                      value="{{ cand.firstname }}"
                     />
                   </div>
                 </div>
@@ -64,49 +61,33 @@
                       type="text"
                       name="lastname"
                       class="form-control resume"
-                      value="{{ can.lastname }}"
+                      value="{{ cand.lastname }}"
                     />
                   </div>
                 </div>
               </div>
 
-              <div class="row">
+             <div class="row">
                 <div class="col-md-6">
                   <div class="form-group app-label mt-2">
-                    <label class="text-muted">Job Type</label>
-                    <div class="form-button">
-                      <select
-                        class="form-control resume"
-                        name="job_type"
-                        value="{{ can.job_type }}"
-                      >
-                        <option data-display="{{ can.job_type }}">
-                          {{ can.job_type }}
-                        </option>
-                        <option>Full Time</option>
-                        <option>Part Time</option>
-                      </select>
-                    </div>
+                    <label class="text-muted">City</label>
+                    <input
+                      type="text"
+                      name="city"
+                      class="form-control resume"
+                      value="{{ cand.city }}"
+                    />
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group app-label mt-2">
-                    <label class="text-muted">Job Category</label>
-                    <div class="form-button">
-                      <select
-                        class="form-control resume"
-                        name="jobcategory"
-                        value="{{ can.jobcategory }}"
-                      >
-                        <option data-display="Category">
-                          {{can.jobcategory}}
-                        </option>
-                        <option>Web Developer</option>
-                        <option>PHP Developer</option>
-                        <option>Web Designer</option>
-                        <option>Graphic Designer</option>
-                      </select>
-                    </div>
+                    <label class="text-muted">State</label>
+                    <input
+                      type="text"
+                      name="state"
+                      class="form-control resume"
+                      value="{{ cand.state }}"
+                    />
                   </div>
                 </div>
               </div>
@@ -121,7 +102,7 @@
                         name="gender"
                         value="{{ can.gender }}"
                       >
-                        <option data-display="Job Type">{{can.gender}}</option>
+                        <option data-display="Job Type">{{cand.gender}}</option>
                         <option>Male</option>
                         <option>Female</option>
                         <option>Other</option>
@@ -131,78 +112,31 @@
                 </div>
                 <div class="col-md-6">
                   <div class="form-group app-label mt-2">
-                    <label class="text-muted">Shift</label>
-                    <div class="form-button">
-                      <select
-                        class="form-control resume"
-                        name="shift"
-                        value="{{ can.shift }}"
-                      >
-                        <option data-display="Job Type">{{can.shift}}</option>
-                        <option>Morning</option>
-                        <option>Afternoon</option>
-                        <option>Evening</option>
-                        <option>Night</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- Location Fields -->
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group app-label mt-2">
-                    <label class="text-muted">City</label>
+                    <label class="text-muted">Job Name</label>
                     <input
                       type="text"
+                      name="jobname"
                       class="form-control resume"
-                      name="city"
-                      value="{{ can.city }}"
+                      value="{{ job.jobname }}"
                     />
                   </div>
                 </div>
-                <div class="col-md-6">
-                  <div class="form-group app-label mt-2">
-                    <label class="text-muted">Country</label>
-                    <select
-                      class="form-control resume"
-                      name="country"
-                      value="{{ can.country }}"
-                    >
-                      <option data-display="Country">{{can.country}}</option>
-                      <option>India</option>
-                      <option>Afghanistan</option>
-                      <option>Bangladesh</option>
-                      <option>Canada</option>
-                      <option>Dominica</option>
-                    </select>
-                  </div>
-                </div>
               </div>
-              <div class="row">
-                <div class="col-md-6">
+              
+              
+                <div class="col-md-12">
                   <div class="form-group app-label mt-2">
                     <label class="text-muted">Portfolio Website</label>
                     <input
                       type="text"
                       class="form-control resume"
                       name="website"
-                      value="{{ can.website }}"
+                      value="{{ cand.website }}"
                     />
                   </div>
                 </div>
-                <div class="col-md-6">
-                  <div class="form-group app-label mt-2">
-                    <label class="text-muted">State</label>
-                    <input
-                      type="text"
-                      class="form-control resume"
-                      name="state"
-                      value="{{ can.state }}"
-                    />
-                  </div>
-                </div>
-              </div>
+                
+              
               <!-- Salary Fields -->
               <div class="row">
                 <div class="col-md-6">
@@ -223,7 +157,7 @@
                     <input
                       type="text"
                       class="form-control resume"
-                      placeholder="$2000"
+                      placeholder="$200"
                       name="max_salary"
                       value="{{ can.max_salary }}"
                     />
@@ -237,15 +171,15 @@
                   <div class="form-group app-label mt-2">
                     <label class="text-muted">Highest Education</label>
                     <div class="form-button">
-                      <input type="text" name="highestedu" id="" class="form-control resume" value="{{can.highestedu}}" />
+                     <input type="text" name="highestedu" id="" class="form-control resume" value="{{cand.highestedu}}" />
                     </div>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group app-label mt-2">
-                    <label class="text-muted">Year of Experience</label>
+                    <label class="text-muted">Experience</label>
                     <div class="form-button">
-                      <input type="text" name="experience" id="" class="form-control resume" value="{{can.experience}}" />
+                     <input type="text" name="experience" id="" class="form-control resume" value="{{cand.experience}}" />
                     </div>
                   </div>
                 </div>
@@ -258,8 +192,9 @@
                     <label class="text-muted">Email Address</label>
                     <input
                       type="text"
+                      name="email"
                       class="form-control resume"
-                      value="{{ user.email }}"
+                      value="{{ request.session.email }}"
                     />
                   </div>
                 </div>
@@ -270,31 +205,17 @@
                       type="text"
                       class="form-control resume"
                       name="contact"
-                      value="{{ can.contact }}"
+                      value="{{ cand.contact }}"
                     />
                   </div>
                 </div>
               </div>
 
-              <!-- Job Description -->
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group app-label mt-2">
-                    <label class="text-muted">Job Description</label>
-                    <textarea
-                      rows="6"
-                      class="form-control resume"
-                      name="jobdescription"
-                      value="{{ can.jobdescription }}"
-                    >{{ can.jobdescription }}</textarea
-                    >
-                  </div>
-                </div>
-              </div>
+              
 
               <!-- File Upload -->
               <div class="form-group">
-                <label for="image">Candidates Image:</label>
+                <label for="image">Upload Resume</label>
                 <input
                   type="file"
                   class="form-control"
@@ -312,6 +233,9 @@
                 </div>
               </div>
             </form>
+            {% endif %}
+            {% endif %}
+            {% endif %}
           </div>
         </div>
       </div>

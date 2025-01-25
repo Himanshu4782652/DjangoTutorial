@@ -35,15 +35,15 @@
         <div class="rounded shadow bg-white p-4">
           <div class="custom-form">
             <div id="message3"></div>
+            {% if msg %}
+                <h4 style=color:Green>{{msg}}</h4>
+            {% endif %}
             {% if user %}
             {% if cand %}
             {% if job %}
             <form method="post" action="{% url 'applyjob' pk=job.id %}" name="contact-form" id="contact-form3" enctype="multipart/form-data">
               {% csrf_token %}
               <h4 class="text-dark mb-3">Please Enter your details</h4>
-              {% if msg %}
-               <h4 style=color:Green>{{msg}}</h4>
-              {% endif %}
               <!-- Name Fields -->
               <div class="row">
                 <div class="col-md-6">
@@ -70,7 +70,7 @@
                 </div>
               </div>
 
-             <div class="row">
+            <div class="row">
                 <div class="col-md-6">
                   <div class="form-group app-label mt-2">
                     <label class="text-muted">City</label>
@@ -172,7 +172,7 @@
                   <div class="form-group app-label mt-2">
                     <label class="text-muted">Highest Education</label>
                     <div class="form-button">
-                     <input type="text" name="education" id="" class="form-control resume" />
+                      <input type="text" name="education" id="" class="form-control resume" />
                     </div>
                   </div>
                 </div>
@@ -180,7 +180,7 @@
                   <div class="form-group app-label mt-2">
                     <label class="text-muted">Experience</label>
                     <div class="form-button">
-                     <input type="text" name="experience" id="" class="form-control resume" />
+                      <input type="text" name="experience" id="" class="form-control resume" />
                     </div>
                   </div>
                 </div>

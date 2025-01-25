@@ -168,7 +168,7 @@ def ApplyPage(request,pk):
       job=JobDetails.objects.get(id=pk)
    return render(request,"app/apply.html",{'user':user,'cand':cand,'job':job})
 
-def ApplyJob(request,pk):
+def apply_job(request,pk):
    user=request.session['id']
    if user:
       can=Candidate.objects.get(user_id=user)
@@ -178,8 +178,7 @@ def ApplyJob(request,pk):
       min_salary = request.POST['minsalary']
       max_salary = request.POST['maxsalary']
       resume = request.FILES['resume']
-      newapply=ApplyJob.objects.create(candidate=can,education=edu,experience=exp,job=job,min_salary=min_salary,max_salary=max_salary,resume=resume)
-      # newapply.save()
+      newapply=ApplyList.objects.create(candidate=can,education=edu,experience=exp,job=job,min_salary=min_salary,max_salary=max_salary,resume=resume)
       message="Job Applied successful"
       return render(request,"app/apply.html",{'msg':message})
 
@@ -258,7 +257,7 @@ def JobDetailSubmit(request):
       return render(request,"app/company/jobpost.html",{'msg':message})
 
 def JobApplyList(request):
-   all_jobapply=ApplyJob.objects.all()
+   all_jobapply=ApplyList.objects.all()
    return render(request,"app/company/applyjoblist.html",{'all_job':all_jobapply})
 
 def CompanyLogout(request):

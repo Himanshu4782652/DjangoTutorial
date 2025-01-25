@@ -38,9 +38,12 @@
             {% if user %}
             {% if cand %}
             {% if job %}
-            <form method="post" action="{% url 'updateprofile' pk=request.session.id %}" name="contact-form" id="contact-form3" enctype="multipart/form-data">
+            <form method="post" action="{% url 'applyjob' pk=job.id %}" name="contact-form" id="contact-form3" enctype="multipart/form-data">
               {% csrf_token %}
               <h4 class="text-dark mb-3">Please Enter your details</h4>
+              {% if msg %}
+               <h4 style=color:Green>{{msg}}</h4>
+              {% endif %}
               <!-- Name Fields -->
               <div class="row">
                 <div class="col-md-6">
@@ -145,9 +148,8 @@
                     <input
                       type="text"
                       class="form-control resume"
-                      placeholder="$80"
-                      name="min_salary"
-                      value="{{ can.min_salary }}"
+                      placeholder="80"
+                      name="minsalary"
                     />
                   </div>
                 </div>
@@ -157,9 +159,8 @@
                     <input
                       type="text"
                       class="form-control resume"
-                      placeholder="$200"
-                      name="max_salary"
-                      value="{{ can.max_salary }}"
+                      placeholder="200"
+                      name="maxsalary"
                     />
                   </div>
                 </div>
@@ -171,7 +172,7 @@
                   <div class="form-group app-label mt-2">
                     <label class="text-muted">Highest Education</label>
                     <div class="form-button">
-                     <input type="text" name="highestedu" id="" class="form-control resume" value="{{cand.highestedu}}" />
+                     <input type="text" name="education" id="" class="form-control resume" />
                     </div>
                   </div>
                 </div>
@@ -179,7 +180,7 @@
                   <div class="form-group app-label mt-2">
                     <label class="text-muted">Experience</label>
                     <div class="form-button">
-                     <input type="text" name="experience" id="" class="form-control resume" value="{{cand.experience}}" />
+                     <input type="text" name="experience" id="" class="form-control resume" />
                     </div>
                   </div>
                 </div>
@@ -215,15 +216,14 @@
 
               <!-- File Upload -->
               <div class="form-group">
-                <label for="image">Upload Resume</label>
+                <label for="resume">Upload Resume</label>
                 <input
                   type="file"
                   class="form-control"
-                  id="image"
-                  name="image"
-                  accept="image/*"
-                  value="{{can.profile_pic}}"
-                />{{can.profile_pic}}
+                  id="resume"
+                  name="resume"
+                  value="{{can.resume}}"
+                />
               </div>
 
               <!-- Submit Button -->

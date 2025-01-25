@@ -168,6 +168,21 @@ def ApplyPage(request,pk):
       job=JobDetails.objects.get(id=pk)
    return render(request,"app/apply.html",{'user':user,'cand':cand,'job':job})
 
+def ApplyJob(request,pk):
+   user=request.session['id']
+   if user:
+      can=Candidate.objects.get(user_id=user)
+      job=JobDetails.objects.get(id=pk)
+      edu=request.POST['education']
+      exp=request.POST['experience']
+      min_salary = request.POST['minsalary']
+      max_salary = request.POST['maxsalary']
+      resume = request.FILES['resume']
+      newapply=ApplyJob.objects.create(candidate=can,education=edu,experience=exp,job=job,min_salary=min_salary,max_salary=max_salary,resume=resume)
+      # newapply.save()
+      message="Job Applied successful"
+      return render(request,"app/apply.html",{'msg':message})
+
 ########## Company Side ###########
 
 def CompanyIndexPage(request):
@@ -241,6 +256,10 @@ def JobDetailSubmit(request):
       
       message="Job Posted Successfully"
       return render(request,"app/company/jobpost.html",{'msg':message})
+
+def JobApplyList(request):
+   all_jobapply=ApplyJob.objects.all()
+   return render(request,"app/company/applyjoblist.html",{'all_job':all_jobapply})
 
 def CompanyLogout(request):
    del request.session['email']

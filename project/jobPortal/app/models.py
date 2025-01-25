@@ -60,12 +60,14 @@ class JobDetails(models.Model):
     companyemail = models.CharField(max_length=250, default="")
     companycontact = models.CharField(max_length=250, default="")
     salarypackage = models.CharField(max_length=250, default="")
-    experience = models.IntegerField(default="")
+    experience = models.IntegerField()
     logo=models.ImageField(upload_to="app/img/jobpost",default="")
 
 class ApplyList(models.Model):
     candidate=models.ForeignKey(Candidate,on_delete=models.CASCADE)
-    job=models.ForeignKey(JobDetails,on_delete=models.CASCADE)
+    job = models.ForeignKey(JobDetails, on_delete=models.CASCADE)
+    education=models.CharField(max_length=200, default="")
+    experience = models.IntegerField(default=0)
     min_salary=models.CharField(max_length=200)
     max_salary=models.CharField(max_length=200)
     resume=models.FileField(upload_to="app/resume")

@@ -4,7 +4,7 @@
     <h1 class="mt-4">Job Post List</h1>
     <ol class="breadcrumb mb-4">
       <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-      <li class="breadcrumb-item active">Job Post List</li>
+      <li class="breadcrumb-item active">Job Apply List</li>
     </ol>
     
     <div class="card mb-4">
@@ -22,27 +22,18 @@
               <th>Contact</th>
             </tr>
           </thead>
-          <tfoot>
-            <tr>
-              <th>Job Name</th>
-              <th>Candidate Name</th>
-              <th>Experience</th>
-              <th>Location</th>
-              <th>Min_salary</th>
-              <th>Max_salary</th>
-              <th>Contact</th>
-            </tr>
-          </tfoot>
+        
           {% if all_job %}
           <tbody>
-           {% for i in all_job %}
-           <tr>
-              <td>{{i.jobname}}</td>
-              <td>{{i.companyname}}</td>
-              <td>{{i.location}}</td>
-              <td>{{i.companywebsite}}</td>
+          {% for i in all_job %}
+            <tr>
+              <td>{{i.job.jobname}}</td>
+              <td>{{i.candidate.firstname}} {{i.candidate.lastname}}</td>
               <td>{{i.experience}}</td>
-              <td>{{i.salarypackage}}</td>
+              <td>{{i.candidate.city}}</td>
+              <td>{{i.min_salary}}</td>
+              <td>{{i.max_salary}}</td>
+              <td>{{i.candidate.contact}}</td>
             </tr>
             {% endfor %}
           </tbody>

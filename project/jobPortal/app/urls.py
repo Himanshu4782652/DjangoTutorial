@@ -25,4 +25,15 @@ urlpatterns = [
   path("jobpostlistpage/",views.JobListPage,name="joblistpage"),
   path("companylogout/",views.CompanyLogout,name="companylogout"),
   path("applyjoblist/",views.JobApplyList,name="applylist"),
+  
+  ############# ADMIN SIDE #################
+  path("adminloginpage/",views.admin_login_page,name="adminloginpage"),  
+  path("adminindex/",views.admin_index_page,name="adminindex"),
+  path("adminlogin/",views.admin_login,name="adminlogin"),
+  path("adminuserlist/",views.admin_user_list,name="userlist"),
+  path("admincompanylist/",views.admin_company_list,name="companylist"),
+  path("deleteuser/<int:pk>",views.user_delete,name="userdelete"),
+  path("verifycompanypage/<int:pk>",views.verify_company_page,name="verifypage"),
+  path('verify_company/<int:pk>/', views.verify_company, name='verify_company'),
+  path("deletecompany/int:pk>",views.company_delete,name="companydelete"),
 ]

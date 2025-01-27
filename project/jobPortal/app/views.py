@@ -264,3 +264,62 @@ def CompanyLogout(request):
    del request.session['email']
    del request.session['password']
    return redirect('index')
+
+
+############################ ADMIN SIDE #######################################
+
+def admin_login_page(request):
+   return render(request,"app/admin/login.html")
+
+def admin_index_page(request):
+   if 'username' in request.session and 'password' in request.session:
+      return render(request,"app/admin/index.html")
+   else:
+      return redirect('adminloginpage')
+
+def admin_login(request):
+   username=request.POST['username']
+   password=request.POST['password']
+   if username=="admin" and password=="admin":
+      request.session['username']=username
+      request.session['password']=password
+      return redirect('adminindex')
+   else:
+      message="Username and Password does'nt match"
+      return render(request,"app/admin/login.html",{'msg':message})
+
+def admin_user_list(request):
+   all_user=UserMaster.objects.filter(role="Candidate")
+   return render(request,"app/admin/userlist.html",{'alluser':all_user})
+
+def admin_company_list(request):
+   all_company=UserMaster.objects.filter(role="Company")
+   return render(request,"app/admin/companylist.html",{'allcompany':all_company})
+
+def user_delete(request,pk):
+   user=UserMaster.objects.get(pk=pk)
+   user.delete()
+   return redirect('userlist')
+
+def verify_company_page(request,pk):
+   company=UserMaster.objects.get(pk=pk)
+   if company:
+      return render(request,"app/admin/verify.html",{'company':company})
+
+def verify_company(request, pk):
+   company = UserMaster.objects.get(pk=pk)
+   if request.method == 'POST':
+      verify_status = request.POST.get('verify')
+      if verify_status == 'True':
+         company.is_verified = True 
+      elif verify_status == 'False':
+         company.is_verified = False
+      company.save()
+      return redirect('companylist')  
+   return render(request, "app/admin/verify.html", {'company': company})
+
+
+def company_delete(request,pk):
+   company=UserMaster.objects.get(pk=pk)
+   company.delete()
+   return redirect('companylist')

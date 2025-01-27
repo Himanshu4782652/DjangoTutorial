@@ -35,5 +35,5 @@ urlpatterns = [
   path("deleteuser/<int:pk>",views.user_delete,name="userdelete"),
   path("verifycompanypage/<int:pk>",views.verify_company_page,name="verifypage"),
   path('verify_company/<int:pk>/', views.verify_company, name='verify_company'),
-  path("deletecompany/int:pk>",views.company_delete,name="companydelete"),
+  path("deletecompany/<int:pk>",views.company_delete,name="companydelete"),
 ]
